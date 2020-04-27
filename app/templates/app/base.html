@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block titulo %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="">
+    <link rel="shortcut icon" href="{% static 'app/img/favicon.png' %}" type="image/x-icon">
+    <!-- //for-mobile-apps -->
+    <link href="{% static 'app/css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'app/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static 'app/css/contactstyle.css' %}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static 'app/css/faqstyle.css' %}" type="text/css" media="all" />
+    <link href="{% static 'app/css/single.css' %}" rel='stylesheet' type='text/css' />
+    <link href="{% static 'app/css/medile.css' %}" rel='stylesheet' type='text/css' />
+    <!-- banner-slider -->
+    <link href="{% static 'app/css/jquery.slidey.min.css' %}" rel="stylesheet">
+    <!-- //banner-slider -->
+    <!-- pop-up -->
+    <link href="{% static 'app/css/popuo-box.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <!-- //pop-up -->
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" href="{% static 'app/css/font-awesome.min.css' %}" />
+    <!-- //font-awesome icons -->
+    <!-- js -->
+    <script type="text/javascript" src="{% static 'app/js/jquery-2.1.4.min.js' %}"></script>
+    <!-- //js -->
+    <!-- banner-bottom-plugin -->
+    <link href="{% static 'app/css/owl.carousel.css' %}" rel="stylesheet" type="text/css" media="all">
+
+    {% block morehead %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    {% block contenido %}
+    {% endblock %}
+
+</body>
+
+</html>
