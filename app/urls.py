@@ -12,4 +12,5 @@ urlpatterns = [
     path('cat/', views.cat, name='cat'), 
     path('badmoms/', views.badmoms, name='badmoms'), 
     path('ranking/', views.ranking, name='ranking'),
+    path('movielist/', views.movie_list, name='movie_list'),
 ]

@@ -1288,8 +1288,7 @@ h3.head {
 }
 @media (max-width: 480px){
 	.w3layouts_logo a h1 {
-		font-size: 2.5em;
-		background: url(../img/1.jpg) no-repeat 71px 6px;
+		font-size: 2.5em;		
 		background-size: 40%;
 		padding-right: 1.4em;
 		padding-bottom: 0.2em;
@@ -1389,7 +1388,7 @@ h3.head {
 		margin: 0 auto;
 	}
 	.w3layouts_logo a h1 {
-		background: url(../img/1.jpg) no-repeat 75px 5px;
+		background: url(../img/inicio2.png) no-repeat 75px 5px;
 		background-size: 46%;
 	}
 	.w3_search {
@@ -1448,7 +1447,7 @@ h3.head {
 }
 @media (max-width: 320px){
 	.w3layouts_logo a h1 {
-		background: url(../img/1.jpg) no-repeat 61px 5px;
+		background: url(../img/inicio2.png) no-repeat 61px 5px;
 		background-size: 46%;
 		font-size: 2em;
 	}
