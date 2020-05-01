@@ -72,9 +72,14 @@
             </div>
             <div class="w3l_sign_in_register">
                 <ul>
+                    {% if request.user.is_authenticated %}
+                        <span>{{ request.user.first_name }}</span>
+                        <li><a href="{% url 'app:view_logout' %}">Logout</a></li>
+                    {% else %}
                     <li><a href="{% url 'app:form_login' %}">Login</a></li>
                     <li><a href="{% url 'app:form_register' %}">Register</a></li>
                 </ul>
+                {% endif %}
             </div>
             <div class="clearfix"> </div>
         </div>
@@ -108,13 +113,17 @@
                                         <div class="col-sm-4">
                                             <ul class="multi-column-dropdown">
                                                 {% if forloop.counter == 3 %}
-                                                    <div class="col-sm-4">
-                                                        <ul class="multi-column-dropdown">
-                                                            <a href="{% url 'app:view_genre' c.id %}"><li>{{ c.name }}</li></a>
-                                                        </ul>
-                                                    </div>
+                                                <div class="col-sm-4">
+                                                    <ul class="multi-column-dropdown">
+                                                        <a href="{% url 'app:view_genre' c.id %}">
+                                                            <li>{{ c.name }}</li>
+                                                        </a>
+                                                    </ul>
+                                                </div>
                                                 {% else %}
-                                                <a href="{% url 'app:view_genre' c.id %}"><li>{{ c.name }}</li></a>
+                                                <a href="{% url 'app:view_genre' c.id %}">
+                                                    <li>{{ c.name }}</li>
+                                                </a>
                                                 {% endif %}
                                             </ul>
                                         </div>

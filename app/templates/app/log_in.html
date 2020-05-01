@@ -50,10 +50,6 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
             </div>
           </div>
           <!-- /.col -->
@@ -65,29 +61,8 @@
       </form>
 
 
-      <div class="social-auth-links text-center mb-3">
-        <form name="formulario" method="post" action="http://pagina.com/send.php">
-          <!-- Lista de selección -->
-          Choose your option:
-          <select name="combo">
-            <!-- Opciones de la lista -->
-            <option value="1">Admin</option>
-            <option value="2" selected>User</option> <!-- Opción por defecto -->
-          </select>
-          <br><br>
-          <div class="col-10"></div>
-            <button type="submit" class="btn btn-primary btn-block" style="width:150px; margin:auto;">OK</button>
-            <a href="{% url 'app:index' %}"><input type="button" value="Usuario"></a>
-          </div>
-          <!-- /.col -->
-        </div>
-        </form>
-       
-      </div>
+      
       <!-- /.social-auth-links -->
-      <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p>
       <p class="mb-0">
         <a href="{% url 'app:form_register' %}" class="text-center">Register a new membership</a>
       </p>

@@ -8,7 +8,7 @@ class Movie(models.Model):
     cast = models.TextField(max_length=2000, null=True)
     duration = models.IntegerField(null=False)
     trailer = models.CharField(max_length=100, null=False)   
-    onBillboard = models.BooleanField(null=False)
+    onBillboard = models.BooleanField(null=False)    
 
     def __str__(self):
         return self.title
@@ -18,7 +18,7 @@ class Movie(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=45, null=False)
-    movies = models.ManyToManyField(Movie, related_name='movies')
+    movies = models.ManyToManyField(Movie, related_name='genres')
 
     def __str__(self):
         return self.name

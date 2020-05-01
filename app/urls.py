@@ -19,6 +19,7 @@ urlpatterns = [
     path('genres/<int:id>/', views.view_genre, name='view_genre'), 
     path('movies/', views.view_movies, name='view_movies'), 
     path('movies/<int:id>/', views.view_movie, name='view_movie'), 
+    path('billboard/', views.view_billboard, name='view_billboard'),
 
 
 ]
