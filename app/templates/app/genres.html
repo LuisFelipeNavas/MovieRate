@@ -1,0 +1,22 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+
+{% block titulo %}
+MovieRate | Genders
+{% endblock %}
+
+{% block morehead %}
+{% endblock %}
+
+
+{% block contenido %}
+
+<h1>Genre list</h1>
+<ul>
+    {% for c in list_genres %}
+        <a href="{% url  'app:view_genre' c.id %}"><li>{{ c.name }}</li></a>
+    {% endfor %}
+</ul>
+
+{% endblock %}

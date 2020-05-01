@@ -1,0 +1,41 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+
+{% block titulo %}
+MovieRate | Movie
+{% endblock %}
+
+{% block morehead %}
+{% endblock %}
+
+
+{% block contenido %}
+
+<h1>{{movie.title}}</h1>
+<ul>
+    <li>
+        <strong>Titulo</strong>
+        <span>{{movie.title}}</span>
+    </li>
+    <li>
+        <strong>Year</strong>
+        <span>{{movie.year}}</span>
+    </li>
+    <li>
+        <strong>Sinopsis</strong>
+        <span>{{movie.sinopsis}}</span>
+    </li>
+    <li>
+        <strong>Billboard</strong>        
+           {% if movie.onBillboard == False %} 
+                <span>No</span>
+            {% else %}
+                <span>Si</span>
+            {% endif %}
+        
+    </li>
+    
+</ul>
+
+{% endblock %}

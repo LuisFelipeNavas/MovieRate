@@ -72,8 +72,8 @@
             </div>
             <div class="w3l_sign_in_register">
                 <ul>
-                    <li><a href="{% url 'app:log_in' %}">Login</a></li>
-                    <li><a href="{% url 'app:register' %}">Register</a></li>
+                    <li><a href="{% url 'app:form_login' %}">Login</a></li>
+                    <li><a href="{% url 'app:form_register' %}">Register</a></li>
                 </ul>
             </div>
             <div class="clearfix"> </div>
@@ -110,11 +110,11 @@
                                                 {% if forloop.counter == 3 %}
                                                     <div class="col-sm-4">
                                                         <ul class="multi-column-dropdown">
-                                                            <li>{{ c.name }}</li>
+                                                            <a href="{% url 'app:view_genre' c.id %}"><li>{{ c.name }}</li></a>
                                                         </ul>
                                                     </div>
                                                 {% else %}
-                                                    <li>{{ c.name }}</li>
+                                                <a href="{% url 'app:view_genre' c.id %}"><li>{{ c.name }}</li></a>
                                                 {% endif %}
                                             </ul>
                                         </div>
