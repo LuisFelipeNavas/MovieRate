@@ -12,11 +12,180 @@ MovieRate | Gender
 
 {% block contenido %}
 
-<h1>Genre {{genre.name}}</h1>
-<ul>
-    {% for p in genre.movies.all %}
-    <a href="{% url 'app:view_movie' p.id %}"><li>{{ p.title }}</li></a>
-    {% endfor %}
-</ul>
+<br>
+<br>
+
+
+<h4 class="latest-text w3_latest_text">{{genre.name}} Genre</h4>
+    <ul>
+        {% for p in genre.movies.all %}
+                <div class="general">    
+                        <div class="container">
+                            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                                        <div class="w3_agile_featured_movies">
+                                            {% if p.title == "Greater" %}
+                                                <div class="col-md-2 w3l-movie-gride-agile">
+                                                    <a href="{% url 'app:view_movie' p.id %}" class="hvr-shutter-out-horizontal"><img src="{% static 'app/img/m12.jpg' %}" title="album-name" class="img-responsive" alt=" " />
+                                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                                    </a>
+                                                    
+                                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                        <div class="w3l-movie-text">
+                                                            <h6><a href="{% url 'app:view_movie' p.id %}">{{ p.title }}</a></h6>							
+                                                        </div>
+                                                        <div class="mid-2 agile_mid_2_home">
+                                                            <p>2016</p>
+                                                            <div class="block-stars">
+                                                                <ul class="w3l-ratings">
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                    
+                                                </div>
+                                                {% elif p.title == "Central Intelligence" %}
+                                                <div class="col-md-2 w3l-movie-gride-agile">
+                                                    <a href="{% url 'app:view_movie' p.id %}" class="hvr-shutter-out-horizontal"><img src="{% static 'app/img/m9.jpg' %}"title="album-name" class="img-responsive" alt=" "  />
+                                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" asria-hidden="true"></i></div>
+                                                    </a>
+                                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                        <div class="w3l-movie-text">
+                                                            <h6><a href="{% url 'app:view_movie' p.id %}">{{ p.title }}</a></h6>							
+                                                        </div>
+                                                        <div class="mid-2 agile_mid_2_home">
+                                                            <p>2016</p>
+                                                            <div class="block-stars">
+                                                                <ul class="w3l-ratings">
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% elif p.title == "X-men Apocalypse" %}
+                                                <div class="col-md-2 w3l-movie-gride-agile">
+                                                    <a href="{% url 'app:view_movie' p.id %}" class="hvr-shutter-out-horizontal"><img src="{% static 'app/img/m11.jpg' %}"title="album-name" class="img-responsive" alt=" "  />
+                                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" asria-hidden="true"></i></div>
+                                                    </a>
+                                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                        <div class="w3l-movie-text">
+                                                            <h6><a href="{% url 'app:view_movie' p.id %}">{{ p.title }}</a></h6>							
+                                                        </div>
+                                                        <div class="mid-2 agile_mid_2_home">
+                                                            <p>2016</p>
+                                                            <div class="block-stars">
+                                                                <ul class="w3l-ratings">
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% elif p.title == "THE LIGHT BETWEEN OCEANS" %}
+                                                <div class="col-md-2 w3l-movie-gride-agile">
+                                                    <a href="{% url 'app:view_movie' p.id %}" class="hvr-shutter-out-horizontal"><img src="{% static 'app/img/m7.jpg' %}"title="album-name" class="img-responsive" alt=" "  />
+                                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" asria-hidden="true"></i></div>
+                                                    </a>
+                                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                        <div class="w3l-movie-text">
+                                                            <h6><a href="{% url 'app:view_movie' p.id %}">{{ p.title }}</a></h6>							
+                                                        </div>
+                                                        <div class="mid-2 agile_mid_2_home">
+                                                            <p>2016</p>
+                                                            <div class="block-stars">
+                                                                <ul class="w3l-ratings">
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% elif p.title == "The BFG" %}
+                                                <div class="col-md-2 w3l-movie-gride-agile">
+                                                    <a href="{% url 'app:view_movie' p.id %}" class="hvr-shutter-out-horizontal"><img src="{% static 'app/img/m8.jpg' %}"title="album-name" class="img-responsive" alt=" "  />
+                                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" asria-hidden="true"></i></div>
+                                                    </a>
+                                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                        <div class="w3l-movie-text">
+                                                            <h6><a href="{% url 'app:view_movie' p.id %}">{{ p.title }}</a></h6>							
+                                                        </div>
+                                                        <div class="mid-2 agile_mid_2_home">
+                                                            <p>2016</p>
+                                                            <div class="block-stars">
+                                                                <ul class="w3l-ratings">
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% elif p.title == "Bad Moms" %}
+                                                <div class="col-md-2 w3l-movie-gride-agile">
+                                                    <a href="{% url 'app:view_movie' p.id %}" class="hvr-shutter-out-horizontal"><img src="{% static 'app/img/m2.jpg' %}"title="album-name" class="img-responsive" alt=" "  />
+                                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" asria-hidden="true"></i></div>
+                                                    </a>
+                                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                        <div class="w3l-movie-text">
+                                                            <h6><a href="{% url 'app:view_movie' p.id %}">{{ p.title }}</a></h6>							
+                                                        </div>
+                                                        <div class="mid-2 agile_mid_2_home">
+                                                            <p>2016</p>
+                                                            <div class="block-stars">
+                                                                <ul class="w3l-ratings">
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>	
+                   
+                </div>
+        {% endfor %}
+     </ul>        
+        
+    
+
+
+
 
 {% endblock %}
