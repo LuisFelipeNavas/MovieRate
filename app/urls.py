@@ -3,11 +3,7 @@ from . import views
 
 app_name = 'app' 
 urlpatterns = [
-    path('', views.index, name='index'),     
-    path('base/', views.base, name='base'), 
-    path('prueba/', views.prueba, name='prueba'), 
-    path('cat/', views.cat, name='cat'), 
-    path('badmoms/', views.badmoms, name='badmoms'), 
+    path('', views.index, name='index'),       
     path('ranking/', views.ranking, name='ranking'),
     path('movielist/', views.movie_list, name='movie_list'),    
     path('register/', views.register, name='register'), 
@@ -17,9 +13,7 @@ urlpatterns = [
     path('logout/', views.view_logout, name='view_logout'), 
     path('genres/', views.view_genres, name='view_genres'), 
     path('genres/<int:id>/', views.view_genre, name='view_genre'), 
-    path('movies/', views.view_movies, name='view_movies'), 
+    #path('movies/', views.view_movies, name='view_movies'), 
     path('movies/<int:id>/', views.view_movie, name='view_movie'), 
-    path('billboard/', views.view_billboard, name='view_billboard'),
-
-
+    
 ]

@@ -20,22 +20,6 @@ def index(request):
     }
     return render(request, 'app/index.html', contexto)
 
-def base(request):  
-    genre_list = Genre.objects.all()
-    contexto = {
-        'genre_list' : genre_list
-    }  
-    return render(request, 'app/base.html', contexto)
-
-def prueba(request):
-    return render(request, 'app/prueba.html')
-
-def cat(request):
-    return render(request, 'app/base.html')
-
-def badmoms(request):
-    return render(request, 'app/badmoms.html')
-
 def ranking(request):
     genre_list = Genre.objects.all()
     averages=[]
@@ -140,8 +124,7 @@ def register(request):
     usuario.set_password(password)
  
     # Guarda el usuario en la base de datos
-    usuario.save()
- 
+    usuario.save() 
     return redirect('app:form_login')
 
 def authenticat(request):
@@ -169,8 +152,8 @@ def view_logout(request):
   # Redirecciona la página de login
   return redirect('app:index')
 
-def view_movies(request):
-    return HttpResponse()
+# def view_movies(request):
+#     return HttpResponse()
 
 def view_movie(request, id):
     genre_list = Genre.objects.all()
@@ -180,10 +163,7 @@ def view_movie(request, id):
         'movie': movie_obj,
         'genre_list' : genre_list
     }
-
     return render(request, 'app/movie.html', contexto)
-
-
 
 def view_genres(request):
     genre_list = Genre.objects.all()
@@ -193,7 +173,6 @@ def view_genres(request):
         'list_genres': list_genres,
         'genre_list' : genre_list
     }
-
     return render(request, 'app/genres.html', contexto)
 
 def view_genre(request, id):
@@ -204,18 +183,4 @@ def view_genre(request, id):
         'genre': genre_obj,
         'genre_list' : genre_list
     }
-
     return render(request, 'app/genre.html', contexto)
-
-
-def view_billboard(request):
-    billboard = Movie.objects.filter(onBillboard=True)
-    genre_list = Genre.objects.all()
-
-    contexto = {
-        'billboard' : billboard,
-        'genre_list' : genre_list
-        
-    }
-
-    return render(request, 'app/billboard.html', contexto)

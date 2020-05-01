@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,14 +46,9 @@
             });
         });
     </script>
-
-
-
     {% block morehead %}
     {% endblock %}
-
 </head>
-
 <body>
     <!-- header -->
     <div class="header">
@@ -73,8 +67,8 @@
             <div class="w3l_sign_in_register">
                 <ul>
                     {% if request.user.is_authenticated %}
-                        <span>{{ request.user.first_name }}</span>
-                        <li><a href="{% url 'app:view_logout' %}">Logout</a></li>
+                    <span>{{ request.user.first_name }}</span>
+                    <li><a href="{% url 'app:view_logout' %}">Logout</a></li>
                     {% else %}
                     <li><a href="{% url 'app:form_login' %}">Login</a></li>
                     <li><a href="{% url 'app:form_register' %}">Register</a></li>
@@ -256,7 +250,5 @@
         });
     </script>
     <!-- //here ends scrolling icon -->
-
 </body>
-
 </html>

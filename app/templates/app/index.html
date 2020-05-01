@@ -27,10 +27,6 @@ MovieRate
 
 {% block contenido %}
 
-
-
-
-
 <!-- bootstrap-pop-up -->
 <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
 	<div class="modal-dialog" role="document">
@@ -142,11 +138,12 @@ MovieRate
 		<div class="w3_agile_banner_bottom_grid">
 			<div id="owl-demo" class="owl-carousel owl-theme">
 
+
 				{% for b in billboard %}
 				<div class="item">
 					<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
 						<a href="{% url 'app:view_movie' b.id %}" class="hvr-shutter-out-horizontal"><img
-								src="{% static 'app/img/m11.jpg' %}" title="album-name" class="img-responsive"
+								src="/static/app/img/posters/{{b.id}}.jpg" title="album-name" class="img-responsive"
 								alt=" " />
 							<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
 						</a>
@@ -736,7 +733,7 @@ MovieRate
 					<div class="col-md-2 w3l-movie-gride-agile">
 
 						<a href="{% url 'app:view_movie' x.id %}" class="hvr-shutter-out-horizontal"><img
-								src="{% static 'app/img/c12.jpg' %}" title="album-name" class="img-responsive"
+								src="/static/app/img/posters/{{x.id}}.jpg" title="album-name" class="img-responsive"
 								alt=" " />
 							<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
 						</a>
