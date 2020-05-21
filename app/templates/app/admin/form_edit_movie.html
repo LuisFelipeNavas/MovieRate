@@ -1,0 +1,121 @@
+{% extends "app/admin/plantilla_admin.html" %}
+{% load static %}
+
+{% block titulo %}
+MovieRate | Admin | Create New Genre
+{% endblock %}
+
+{% block morehead %}
+<!-- Theme style -->
+<link rel="stylesheet" href="{% static 'app/admin/css/adminlte.min.css' %}">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+{% endblock %}
+
+{% block contenido %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Edit Movie</h3>
+                </div>
+                <form role="form" action="{% url 'app:post_edit_movie' movie.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" class="form-control" value="{{movie.title}}">
+                        </div>
+                        <div class="card-group">
+                            <label>Sinopsis</label>
+                            <textarea name="sinopsis" cols="30" rows="10"
+                                class="form-control">{{movie.sinopsis}}</textarea>
+                        </div>
+                        <div class="card-group">
+                            <label>Year</label>
+                            <input type="number" name="year" class="form-control" value="{{movie.year}}">
+                        </div>
+                        <div class="card-group">
+                            <label>Cast</label>
+                            <textarea name="cast" cols="30" rows="10" class="form-control">{{movie.cast}}</textarea>
+                        </div>
+                        <div class="card-group">
+                            <label>Duration</label>
+                            <input type="number" name="duration" class="form-control" value="{{movie.duration}}">
+                        </div>
+                        <div class="card-group">
+                            <label>Trailer link</label>
+                            <input type="text" name="trailer" class="form-control" value="{{movie.trailer}}">
+                        </div>
+
+                        <div class="form-group">                            
+                            <div class="custom-control custom-checkbox">
+                                {% if movie.onBillboard == 1 %}
+                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1000" value="1"
+                                        name="onBillboard" checked>
+                            {% else %}
+                                <input class="custom-control-input" type="checkbox" id="customCheckbox1000" value="1"
+                                    name="onBillboard">
+                            {% endif %}
+                                <label for="customCheckbox1000" class="custom-control-label">on Billboard</label>
+                            </div>
+                        </div>
+
+                        <div class="card-header">
+                            <h3 class="card-title">Genres</h3>
+                        </div>
+                        <div class="row">
+                            {% for c in genre_list %}
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        {% if forloop.counter == 3 %}
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    {% for x in movie_genres %}
+                                                    {% if c.id == x.id %}
+                                                    <input name="chbx_{{c.id}}" class="custom-control-input"
+                                                        type="checkbox" id="customCheckbox{{c.id}}"
+                                                        value="{{c.id}}" checked>
+                                                    {% else %}
+                                                    <input name="chbx_{{c.id}}" class="custom-control-input"
+                                                        type="checkbox" id="customCheckbox{{c.id}}"
+                                                        value="{{c.id}}">
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    <label for="customCheckbox{{c.id}}"
+                                                        class="custom-control-label">{{c.name}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        {% for x in movie_genres %}
+                                        {% if c.id == x.id %}
+                                        <input name="chbx_{{c.id}}" class="custom-control-input" type="checkbox"
+                                            id="customCheckbox{{c.id}}" value="{{c.id}}" checked>
+                                        {% else %}
+                                        <input name="chbx_{{c.id}}" class="custom-control-input" type="checkbox"
+                                            id="customCheckbox{{c.id}}" value="{{c.id}}">
+                                        {% endif %}
+                                        {% endfor %}
+                                        <label for="customCheckbox{{c.id}}"
+                                            class="custom-control-label">{{c.name}}</label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

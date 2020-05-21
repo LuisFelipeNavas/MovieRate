@@ -1,0 +1,41 @@
+{% extends "app/admin/plantilla_admin.html" %}
+{% load static %}
+
+{% block titulo %}
+MovieRate | Admin | Create New Genre
+{% endblock %}
+
+{% block morehead %}
+<!-- Theme style -->
+<link rel="stylesheet" href="{% static 'app/admin/css/adminlte.min.css' %}">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-md-10">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Create a new gender</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" action="{% url 'app:post_create_genre' %}" method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Gender's name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="name">
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

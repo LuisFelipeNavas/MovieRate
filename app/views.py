@@ -8,6 +8,18 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.db.models import Avg
 
+def index_admin(request):
+    billboard = Movie.objects.filter(onBillboard=True)       
+    genre_list = Genre.objects.all()
+    latest_movies = Movie.objects.all().order_by('-id')[:3]
+    
+    contexto = {
+        'genre_list' : genre_list,
+        'billboard' : billboard,
+        'latest_movies' : latest_movies
+    }
+    return render(request, 'app/admin/index.html', contexto)
+
 def index(request):
     billboard = Movie.objects.filter(onBillboard=True)       
     genre_list = Genre.objects.all()
@@ -42,9 +54,14 @@ def ranking(request):
        'movie_list' : movie_list,
        'genre_list' : genre_list
     }
-    return render(request, 'app/ranking.html', contexto)
 
-def movie_list(request):
+    if request.user.is_superuser:
+        return render(request, 'app/admin/ranking.html', contexto)
+    else:
+        return render(request, 'app/ranking.html', contexto)    	
+    
+
+def movies_list(request):
     genre_list = Genre.objects.all()
     movies_list = Movie.objects.all()
     movie_a = movies_list.filter(title__startswith='a')
@@ -104,7 +121,12 @@ def movie_list(request):
         'movie_z' : movie_z, 
         'genre_list' : genre_list
     }
-    return render(request, 'app/movie_list.html', contexto)
+    	
+    if request.user.is_superuser:
+        return render(request, 'app/admin/movie_list.html', contexto)
+    else:
+        return render(request, 'app/movie_list.html', contexto)    	
+    
 
 def form_login(request):
     return render(request, 'app/log_in.html')
@@ -136,11 +158,16 @@ def authenticat(request):
     usuario = authenticate(request, username=username, password=password)
  
     # Verifica si el usuario existe en la base de datos 
-    if usuario is not None:
+    if usuario is not None and usuario.is_superuser == False:
         # Inicia la sesión del usuario en el sistema
         login(request, usuario)
         # Redirecciona a una página de éxito
         return redirect('app:index')
+    elif usuario is not None and usuario.is_superuser == True:
+        # Inicia la sesión del usuario en el sistema
+        login(request, usuario)
+        # Redirecciona a una página de éxito
+        return redirect('app:index_admin')
     else:
         # Retorna un mensaje de error de login no válido
         return render(request, 'app/log_in.html') 
@@ -184,3 +211,129 @@ def view_genre(request, id):
         'genre_list' : genre_list
     }
     return render(request, 'app/genre.html', contexto)
+
+def form_create_genre(request):   
+    return render(request, 'app/admin/form_create_genre.html')
+
+def post_create_genre(request):
+    # Obtiene el nombre de la categoría
+    nombre_categoria = request.POST['name']
+    # Crea el objeto categoría
+    categoria = Genre(name=nombre_categoria)
+    # Guarda el objeto en la base de datos
+    categoria.save()
+    # Redirecciona a la página de categorías
+    return redirect('app:view_genres')    
+
+
+def form_create_movie(request):
+    genre_list = Genre.objects.all()
+    contexto = {
+        'genre_list' : genre_list
+    }
+    return render(request, 'app/admin/form_create_movie.html', contexto)
+
+def post_create_movie(request):    
+    keys = []
+    values = []
+    for key, value in request.POST.items():       
+        keys.append(key)
+        values.append(value)      
+    keys.pop(0)
+    values.pop(0)
+
+    try: 
+        keys.index('onBillboard')
+    except:
+        values.insert(6,0)
+    print(keys)
+    print(values)
+
+    movie = Movie(title=values[0], sinopsis=values[1], year=int(values[2]), cast=values[3], duration=int(values[4]), trailer=values[5], onBillboard=int(values[6]))
+    movie.save()
+
+    genres = values[7:]    
+    print(genres)
+    movies = Movie.objects.all()
+    last_movie = Movie.objects.get(id=movies.count())
+    
+    for c in genres:
+        genre = Genre.objects.get(id=c)
+        genre.movies.add(last_movie)  
+
+    return redirect('app:movies_list')    
+
+def form_edit_movie(request, id):
+    movie = Movie.objects.get(pk=id)
+    movie_genres = movie.genres.all()
+    genre_list = Genre.objects.all()
+    contexto = {
+        'movie' : movie,
+        'movie_genres' : movie_genres,
+        'genre_list' : genre_list
+    }
+    return render(request, 'app/admin/form_edit_movie.html', contexto)
+
+def post_edit_movie(request, id):
+    keys = []
+    values = []
+    for key, value in request.POST.items():       
+        keys.append(key)
+        values.append(value)      
+    keys.pop(0)
+    values.pop(0)
+
+    try: 
+        keys.index('onBillboard')
+    except:
+        values.insert(6,0)
+    print(keys)
+    print(values)
+
+    movie = Movie.objects.get(pk=id) 
+
+    movie.title=values[0]
+    movie.sinopsis=values[1]
+    movie.year=int(values[2])
+    movie.cast=values[3]
+    movie.duration=int(values[4])
+    movie.trailer=values[5]
+    movie.onBillboard=int(values[6])
+    movie.save()
+
+    genres_remove = movie.genres.all()
+    for x in genres_remove:
+        movie.genres.remove(x.id)
+
+    genres = values[7:]    
+    print(genres)    
+    
+    for c in genres:
+        genre = Genre.objects.get(id=c)
+        genre.movies.add(movie)
+
+    return redirect('app:movies_list')    
+
+def post_delete_movie(request, id):
+    movie = Movie.objects.get(pk=id)
+    movie.delete()
+    return redirect('app:movies_list')    
+
+def form_register_admin(request):
+    return render(request, 'app/admin/form_register_admin.html')
+ 
+def register_admin(request):
+    # Obtiene los datos
+    username = request.POST['username']
+    names = request.POST['names']
+    email = request.POST['email']
+    password = request.POST['password']
+ 
+    # Crea el objeto usuario
+    usuario = User(username=username, first_name=names, email=email, is_superuser=1)
+    usuario.set_password(password)
+ 
+    # Guarda el usuario en la base de datos
+    usuario.save() 
+    return redirect('app:form_register_admin')
+
