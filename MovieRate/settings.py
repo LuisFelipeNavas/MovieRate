@@ -25,7 +25,7 @@ SECRET_KEY = '3ayr5mo5874^$xzp4f4&1y#br(zwrnm+5dqexfgdrm6fux(#_e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'MovieRate.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'MovieRate',
+        'USER': 'postgres',
+        'PASSWORD': '123456789',
+        'HOST': 'movieratedatabase.ch6hrrudlwug.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -119,3 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'app/static/')

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from app.models import Genre, User, Comment, Score, Movie
 from django.contrib.auth.models import User	
 from django.contrib.auth import authenticate	
@@ -185,10 +185,11 @@ def view_logout(request):
 def view_movie(request, id):
     genre_list = Genre.objects.all()
     movie_obj = Movie.objects.get(pk=id)
-
+    comments_list = Comment.objects.filter(movie_id=id)
     contexto = {
         'movie': movie_obj,
-        'genre_list' : genre_list
+        'genre_list' : genre_list,
+        'comments_list': comments_list
     }
     return render(request, 'app/movie.html', contexto)
 
@@ -337,3 +338,48 @@ def register_admin(request):
     usuario.save() 
     return redirect('app:form_register_admin')
 
+def post_comments(request, id):
+    coment = request.POST['coment']
+    user = User.objects.get(id=request.user.id)
+    movie_obj = Movie.objects.get(pk=id)
+
+    comentario = Comment(text=coment, active=1, user=user, movie=movie_obj)
+    comentario.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def disable_comment(request, id):
+    com = Comment.objects.get(pk=id)
+    com.active = False
+    com.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def enable_comment(request, id):
+    com = Comment.objects.get(pk=id)
+    com.active = True
+    com.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def search(request):  
+    try:
+        q= request.GET.get('q')
+    except:
+        q=None    
+    if q:
+        movies_list = Movie.objects.filter(title__icontains = q )
+        contexto =  {'query': q, 'movies_list': movies_list}
+        template= 'app/resultado.html'
+    else:
+        template= 'app/base.html'
+        contexto = {        
+    }
+    return render(request, template, contexto)
+
+def post_score(request, id):
+
+    star = request.POST['star']
+    
+    user_1 = User.objects.get(id=request.user.id)
+    mov = Movie.objects.get(pk=id)
+    score_1 = Score(value=star, user=user_1, movie=mov)
+    score_1.save()
+    return redirect('app:ranking')   

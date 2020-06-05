@@ -28,6 +28,9 @@ urlpatterns = [
     path('movies/delete/post/<int:id>/', views.post_delete_movie, name='post_delete_movie'),
     path('register_admin/', views.register_admin, name='register_admin'), 
     path('register/admin', views.form_register_admin, name='form_register_admin'), 
-
-    
+    path('post_comments/<int:id>/', views.post_comments, name='post_comments'),    
+    path('disable_comment/<int:id>/', views.disable_comment, name='disable_comment'),    
+    path('enable_comment/<int:id>/', views.enable_comment, name='enable_comment'), 
+    path('s/', views.search, name='search'),
+    path('score/<int:id>/', views.post_score, name='post_score'), 
 ]

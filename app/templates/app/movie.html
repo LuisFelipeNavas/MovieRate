@@ -1,23 +1,12 @@
 {% extends "app/base.html" %}
 {% load static %}
 
-
 {% block titulo %}
-MovieRate | Movie
+MovieRate | {{movie.title}}
 {% endblock %}
-
 {% block morehead %}
 {% endblock %}
-
-
 {% block contenido %}
-
-
-
-
-
-
-
 <div class="general_social_icons">
 	<nav class="social">
 		<ul>
@@ -42,39 +31,21 @@ MovieRate | Movie
 						</div>
 						<div class="video-grid-single-page-agileits">
 							<div>
-								{% if movie.title == "Bad Moms" %}
-								<iframe width="720" height="315" src="https://www.youtube.com/embed/iKCw-kqo3cs">
-								</iframe>
-								{% elif movie.title == "Central Intelligence" %}
-								<iframe width="720" height="315" src="https://www.youtube.com/embed/MxEw3elSJ8M">
-								</iframe>
-								{% elif movie.title == "X-men Apocalypse" %}
-								<iframe width="720" height="315" src="https://www.youtube.com/embed/Jer8XjMrUB4">
-								</iframe>
-								{% elif movie.title == "Greater" %}
-								<iframe width="720" height="315" src="https://www.youtube.com/embed/v0Ow6lhvPNk">
-								</iframe>
-								{% elif movie.title == "THE LIGHT BETWEEN OCEANS" %}
-								<iframe width="720" height="315" src="https://www.youtube.com/embed/RDaWvtwdsQU">
-								</iframe>
-								{% elif movie.title == "The BFG" %}
-								<iframe width="720" height="315" src="https://www.youtube.com/embed/GZ0Bey4YUGI">
-								</iframe>
-								{% else %}
-								<p>GG</p>
-								{% endif %}
+								<iframe width="720" height="315" src="{{movie.trailer}}"></iframe>								
 							</div>
 						</div>
+						{% if request.user.is_authenticated %}
 						<div class="block-stars-1">
-							<ul class="w3l-ratings2">
-								<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-star" aria-hidden="false"></i></a></li>
-								<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-star-o" aria-hidden="false"></i></a></li>
-
+							<ul class="input-group mb-3">
+								<form action="{% url 'app:post_score' movie.id %}" method="post">
+									{% csrf_token %}
+									<label>Score: </label> 
+									<input type="text" class="form-control" placeholder="Score" name="star">
+									<button class="btn btn-primary btn-block">Send</button>
+								</form>
 							</ul>
 						</div>
+						{% endif %}
 						<div class="clearfix"></div>
 
 					</div>
@@ -107,10 +78,6 @@ MovieRate | Movie
 					<br>
 					<br>
 
-
-
-
-
 					<h4 style="display: inline-block;">En Cartelera:</h4>
 					<p style="display: inline-block;">
 
@@ -123,10 +90,6 @@ MovieRate | Movie
 					</p>
 					<br>
 					<br>
-
-
-
-
 				</div>
 				<div class="song-grid-right">
 					<div class="share">
@@ -180,50 +143,73 @@ MovieRate | Movie
 					</div>
 				</div>
 				<div class="clearfix"> </div>
-
-				<div class="media-grids">
-					<div class="media">
-						<h5>Felipe Rios</h5>
-						<div class="media-left">
-							<a href="#">
-								<img src="images/user.jpg" title="One movies" alt=" " />
-							</a>
-						</div>
-						<div class="media-body">
-							<p>Bonita pelicula</p>
-
-							<span>Fecha: 10/03/2020 15:45 <a href="#"> Admin </a></span>
+				<div class="all-comments">
+					<div class="media-grids">
+						{% for x in comments_list %}
+							{% if request.user.is_superuser == False %}
+								{% if x.active == True %}
+								<div class="media">
+									<h5>{{x.user}}</h5>
+									<div class="media-left">
+										<a href="#">
+											<img src="{% static 'app/img/user.jpg' %}" title="One movies" alt=" " />
+										</a>
+										<form action="{% url 'app:disable_comment' x.id %}" method="post">
+											{% csrf_token %}
+											{% if request.user.is_superuser == True %}
+											<input type="submit" class="btn btn-outline-danger">Disable</input>
+											{% endif %}
+										</form>
+									</div>
+									<div class="media-body">
+										<p>{{x.text}}</p>
+										<span>{{x.dateHour}}</span>
+									</div>
+								</div>
+								{% endif %}
+							{% elif request.user.is_superuser == True %}
+								<div class="media">
+									<h5>{{x.user}}</h5>
+									<div class="media-left">
+										<a href="#">
+											<img src="{% static 'app/img/user.jpg' %}" title="One movies" alt=" " />
+										</a>									
+										{% if x.active == True%}
+											<form action="{% url 'app:disable_comment' x.id %}" method="post">
+												{% csrf_token %}
+													<input type="submit" class="btn btn-outline-danger" value="Disable">
+											</form>
+										{% else %}
+											<form action="{% url 'app:enable_comment' x.id %}" method="post">
+												{% csrf_token %}
+													<input type="submit" class="btn btn-outline-danger" value="Enabled">
+											</form>
+										{% endif %}
+											
+										</form>
+									</div>
+									<div class="media-body">
+										<p>{{x.text}}</p>
+										<span>{{x.dateHour}}<a href="#">state: {{x.active}} </a></span>
+									</div>
+								</div>								
+							{% endif %}
+						{% endfor %}
+					</div>
+					{% if request.user.is_authenticated %}
+					<div class="all-comments-info">
+						<a href="#">Comments</a>
+						<div class="agile-info-wthree-box">
+							<form action="{% url 'app:post_comments' movie.id %}" method="POST">
+								{% csrf_token %}
+								<textarea placeholder="Message" required="" name="coment"></textarea>
+								<input type="submit" value="SEND">
+								<div class="clearfix"> </div>
+							</form>
 						</div>
 					</div>
-					<div class="media">
-						<h5>Daniel Carrillo</h5>
-						<div class="media-left">
-							<a href="#">
-								<img src="images/user.jpg" title="One movies" alt=" " />
-							</a>
-						</div>
-						<div class="media-body">
-							<p>Interesante</p>
-							<span>Fecha: 8/03/2020 19:26 <a href="#"> Admin </a></span>
-						</div>
-					</div>
-					<div class="media">
-						<h5>Paula Cortez</h5>
-						<div class="media-left">
-							<a href="#">
-								<img src="images/user.jpg" title="One movies" alt=" " />
-							</a>
-						</div>
-						<div class="media-body">
-							<p> Increible</p>
-							<span>Fecha: 9/03/2020 11:25 <a href="#"> Admin </a></span>
-						</div>
-					</div>
-
+					{% endif %}
 				</div>
-
-
-
 				<div class="clearfix"> </div>
 			</div>
 			<!-- //movie-browse-agile -->
